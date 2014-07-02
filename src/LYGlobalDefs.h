@@ -705,6 +705,8 @@ extern "C" {
     extern BOOLEAN term_blink_is_boldbg;
 #endif
 
+extern int LYOutputFileNameMode;
+
 #ifdef __cplusplus
 }
 #endif

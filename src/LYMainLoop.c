@@ -6783,11 +6783,26 @@ int mainloop(void)
 	     */
 	    if (crawl && crawl_ok) {
 		crawl_ok = FALSE;
+        if (LYOutputFileNameMode == 0 || !curdoc.title || strlen(curdoc.title) == 0) {
 #ifdef FNAMES_8_3
 		sprintf(cfile, "lnk%05d.dat", crawl_count);
 #else
 		sprintf(cfile, "lnk%08d.dat", crawl_count);
 #endif /* FNAMES_8_3 */
+        } else {
+            snprintf(cfile, 128, "%s.dat", curdoc.title);
+            sprintf(cfile + 123, ".dat");
+            int i = 0;
+            for (; i < 128 && cfile[i] != 0; i++) {
+                if (cfile[i] == '/' || cfile[i] == '\\' || cfile == '?'
+                        || cfile[i] == '%' || cfile[i] == '*' || cfile[i] == ':'
+                        || cfile[i] == '|' || cfile[i] == '"' || cfile[i] == '<'
+                        || cfile[i] == '>') {
+                    cfile[i] = '_';
+                }
+            }
+        }
+
 		crawl_count = crawl_count + 1;
 		if ((cfp = LYNewTxtFile(cfile)) != NULL) {
 		    print_crawl_to_fd(cfp, curdoc.address, curdoc.title);

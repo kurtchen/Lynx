@@ -519,6 +519,8 @@ int max_uri_size = 8192;
 int nlinks = 0;			/* number of links in memory */
 int outgoing_mail_charset = -1;	/* translate mail to this charset */
 
+int LYOutputFileNameMode = 0;
+
 #ifndef DISABLE_BIBP
 BOOLEAN BibP_bibhost_available = FALSE;		/* until check succeeds  */
 BOOLEAN BibP_bibhost_checked = FALSE;	/*  until LYCheckBibHost   */
@@ -3747,6 +3749,12 @@ soon as they are seen)"
    PARSE_SET(
       "number_links",	4|SET_ARG,		number_links,
       "force numbering of links"
+   ),
+   PARSE_INT(
+      "output_filename_mode",		4|INT_ARG,		LYOutputFileNameMode,
+      "with -crawl and -traversal, how to name the file:\n\
+      0 default\n\
+      1 use page title"
    ),
 #ifdef DISP_PARTIAL
    PARSE_SET(
