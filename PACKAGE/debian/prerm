@@ -1,0 +1,12 @@
+#! /bin/sh
+# prerm script for lynx
+
+set -e
+
+if [ $1 != "upgrade" ]; then
+	update-alternatives --remove lynx /usr/bin/lynx-dev
+fi
+
+#DEBHELPER#
+
+exit 0

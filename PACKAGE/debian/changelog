@@ -1,0 +1,71 @@
+lynx-dev (2.8.9dev.1) unstable; urgency=low
+
+  * maintenance updates
+
+ -- Thomas E. Dickey <dickey@invisible-island.net>  Mon, 10 Mar 2014 17:44:33 -0400
+
+lynx-dev (2.8.8dev.16) unstable; urgency=high
+
+  * changes for dev.16
+
+ -- Thomas E. Dickey <dickey@invisible-island.net>  Tue, 30 Apr 2013 04:32:34 -0400
+
+lynx-dev (2.8.8dev.15) unstable; urgency=high
+
+  * changes for dev.15
+
+ -- Thomas E. Dickey <dickey@invisible-island.net>  Thu, 08 Nov 2012 17:39:36 -0500
+
+lynx-dev (2.8.8dev.14) unstable; urgency=high
+
+  * fix regresion in dev.13
+
+ -- Thomas E. Dickey <dickey@invisible-island.net>  Wed, 22 Aug 2012 06:22:28 -0400
+
+lynx-dev (2.8.8dev.13) unstable; urgency=low
+
+  * changes for dev.13
+
+ -- Thomas E. Dickey <dickey@invisible-island.net>  Sat, 07 Jul 2012 10:55:34 -0400
+
+lynx-dev (2.8.8dev.12) unstable; urgency=low
+
+  * changes for dev.12
+
+ -- Thomas E. Dickey <dickey@invisible-island.net>  Wed, 22 Feb 2012 20:23:20 -0500
+
+lynx-dev (2.8.8dev.11) unstable; urgency=low
+
+  * changes for dev.11
+
+ -- Thomas E. Dickey <dickey@invisible-island.net>  Wed, 15 Feb 2012 18:43:49 -0500
+
+lynx-dev (2.8.8dev.10) unstable; urgency=low
+
+  * changes for dev.10
+
+ -- Thomas E. Dickey <dickey@invisible-island.net>  Thu, 06 Oct 2011 18:19:01 -0400
+
+lynx-dev (2.8.8dev.9) unstable; urgency=low
+
+  * changes for dev.9
+
+ -- Thomas E. Dickey <dickey@invisible-island.net>  Wed, 27 Apr 2011 19:38:05 -0400
+
+lynx-dev (2.8.8dev.8) unstable; urgency=low
+
+  * changes for dev.8
+
+ -- Thomas E. Dickey <dickey@invisible-island.net>  Sun, 19 Dec 2010 18:49:04 -0500
+
+lynx-dev (2.8.8dev.7) unstable; urgency=low
+
+  * changes for dev.7
+
+ -- Thomas E. Dickey <dickey@invisible-island.net>  Mon, 01 Nov 2010 17:32:06 -0400
+
+lynx-dev (2.8.8dev.6) unstable; urgency=low
+
+  * add build-script for testing, adapted from Debian lynx-cur package.
+
+ -- Thomas E. Dickey <dickey@invisible-island.net>  Sat, 18 Sep 2010 07:14:46 -0400

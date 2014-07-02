@@ -1,0 +1,184 @@
+#!/usr/bin/make -f
+# Made with the aid of dh_make, by Craig Small
+# Sample debian/rules that uses debhelper. GNU copyright 1997 by Joey Hess.
+# Some lines taken from debmake, by Cristoph Lameter.
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+# These are used for cross-compiling and for saving the configure script
+# from having to guess our platform (since we know it already)
+DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+
+PKG_SUFFIX	= -dev
+
+PACKAGE		:= $(shell dpkg-parsechangelog| \
+			sed -n 's/^Source: \(.*\)$$/\1/p')
+
+docdir		:= /usr/share/doc/$(PACKAGE)
+helpdir		:= $(docdir)/help_dir
+
+DSTDIR		:= $(CURDIR)/debian/$(PACKAGE)
+DOCDIR		:= $(DSTDIR)$(docdir)
+
+CFLAGS =
+
+ifneq (,$(findstring debug,$(DEB_BUILD_OPTIONS)))
+DEBOP=--enable-debug
+else
+DEBOP=
+endif
+
+ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+        CFLAGS += -O0
+else
+        CFLAGS += -O2
+endif
+ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
+        INSTALL_PROGRAM += -s
+endif
+
+# This package adds the following not in Debian lynx-cur:
+# --enable-htmlized-cfg
+# --enable-local-docs
+# --with-cfg-path
+
+configure: configure-stamp
+configure-stamp:
+	dh_testdir
+
+	env cf_cv_SYSTEM_MAIL=/usr/sbin/sendmail \
+		COMPRESS=/usr/bin/compress \
+		BZIP2=/bin/bzip2 \
+		UNZIP=/usr/bin/unzip \
+		ZIP=/usr/bin/zip \
+		LIBS="-lbsd" \
+	./configure \
+		--host=$(DEB_HOST_GNU_TYPE) \
+		--build=$(DEB_BUILD_GNU_TYPE) \
+		--program-suffix=$(PKG_SUFFIX) \
+		--prefix=/usr \
+		--libexecdir=\$${prefix}/lib \
+		--mandir=\$${prefix}/share/man \
+		--sysconfdir=/etc/$(PACKAGE) \
+		--with-cfg-path=/etc/$(PACKAGE):$(docdir)/samples \
+		--localstatedir=/var \
+		--libdir=/etc/$(PACKAGE) \
+		--enable-8bit-toupper \
+		--enable-cgi-links \
+		--enable-cjk \
+		--enable-default-colors \
+		--enable-exec-links \
+		--enable-exec-scripts \
+		--enable-externs \
+		--enable-forms-options \
+		--enable-gzip-help \
+		--enable-htmlized-cfg \
+		--enable-ipv6 \
+		--enable-japanese-utf8 \
+		--enable-justify-elts \
+		--enable-local-docs \
+		--enable-nested-tables \
+		--enable-nls \
+		--enable-nsl-fork \
+		--enable-partial \
+		--enable-persistent-cookies \
+		--enable-prettysrc \
+		--enable-read-eta \
+		--enable-scrollbar \
+		--enable-source-cache \
+		--enable-syslog \
+		--with-gnutls=/usr \
+		--with-screen=ncursesw \
+		--with-textdomain=$(PACKAGE) \
+		--with-zlib \
+		--without-included-gettext \
+		${DEBOP}
+
+	$(MAKE) preinstall \
+		docdir=$(docdir) \
+		helpdir=$(helpdir)
+
+	touch configure-stamp
+
+build: build-stamp
+build-stamp: configure-stamp
+	dh_testdir
+
+	$(MAKE) \
+		docdir=$(docdir) \
+		helpdir=$(helpdir)
+
+	touch build-stamp
+
+clean:
+	dh_testdir
+	dh_testroot
+
+	[ ! -f Makefile ] || $(MAKE) clean
+
+	rm -f configure-stamp build-stamp install-stamp \
+		config.cache config.h config.status config.log makefile
+
+	rm -f *.o lynx
+
+	dh_clean
+
+install: install-stamp
+install-stamp: build-stamp
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdirs
+
+	$(MAKE) install \
+		DESTDIR=$(CURDIR)/debian/$(PACKAGE) \
+		docdir=$(docdir) \
+		helpdir=$(helpdir)
+
+	touch install-stamp
+
+install: install-indep install-arch
+install-indep:
+
+install-arch:
+	dh_testdir
+	dh_testroot
+	dh_prep -s 
+	dh_installdirs -s
+
+	$(MAKE) install-full \
+		DESTDIR=$(DSTDIR) \
+		docdir=$(docdir) \
+		helpdir=$(helpdir)
+
+	cd $(DOCDIR) && rm -f COPY*.asc CHANGES 
+
+# Build architecture-independent files here.
+binary-indep: build install
+# No binary-indep target.
+
+# Build architecture-dependent files here.
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_installdebconf
+	dh_installdocs
+	dh_installmenu
+	dh_installmime
+	dh_installexamples
+	dh_installchangelogs CHANGES
+	dh_install
+	dh_link
+	dh_strip
+	dh_compress -XCOPY -X.lss
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install install-stamp

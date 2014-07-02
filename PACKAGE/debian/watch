@@ -1,0 +1,4 @@
+version=3
+
+opts=passive ftp://lynx.isc.org/current/lynx-cur\.tgz \
+ debian  uupdate

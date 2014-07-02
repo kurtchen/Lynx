@@ -1,0 +1,10 @@
+Document: lynx-dev
+Title: Debian Lynx Manual
+Author: Michael Grobe <grobe@ukans.edu> et al.
+Abstract: This manual describes what lynx-dev is
+ and how it can be used on Debian systems.
+Section: Network/Web Browsing
+
+Format: HTML
+Index: /usr/share/doc/lynx-dev/lynx_help/lynx_help_main.html.gz
+Files: /usr/share/doc/lynx-dev/lynx_help/*.html.gz

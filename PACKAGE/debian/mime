@@ -1,0 +1,2 @@
+text/html; /usr/bin/lynx -force_html %s; needsterminal; description=HTML Text; nametemplate=%s.html; priority=3
+text/html; /usr/bin/lynx -dump -force_html %s; copiousoutput; description=HTML Text; nametemplate=%s.html; priority=2

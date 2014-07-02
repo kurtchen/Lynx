@@ -1,0 +1,27 @@
+#! /bin/sh
+# postinst script for lynx
+
+set -e
+
+PRI=50
+ALT=lynx
+PKG=lynx-dev
+
+BINDIR=/usr/bin
+MANDIR=/usr/share/man/man1
+
+if [ $1 != "upgrade" ]
+then
+
+	update-alternatives \
+		--install \
+			$BINDIR/$ALT $ALT \
+			$BINDIR/$PKG $PRI \
+		--slave $MANDIR/$ALT.1.gz $ALT.1.gz \
+			$MANDIR/$PKG.1.gz
+
+fi
+
+#DEBHELPER#
+
+exit 0

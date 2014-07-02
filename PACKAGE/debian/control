@@ -1,0 +1,21 @@
+Source: lynx-dev
+Section: web
+Priority: extra
+Maintainer: Thomas E. Dickey <dickey@invisible-island.net>
+Homepage: http://lynx.isc.org/
+Build-Depends: debhelper (>= 7), dpatch, po-debconf, libncursesw5-dev, zlib1g-dev, gettext, libgnutls-dev, sharutils, telnet, openssh-client, libbsd-dev, libidn11-dev
+Standards-Version: 3.8.2
+
+Package: lynx-dev
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Provides: www-browser, news-reader
+Recommends: mime-support
+Description: Text-mode WWW Browser with NLS support (development version)
+ Lynx is a fully-featured World Wide Web (WWW) client for users running
+ cursor-addressable, character-cell display devices.  It is very fast and easy
+ to use.  It will display HTML documents containing links to files residing on
+ the local system, as well as files residing on remote systems running Gopher,
+ HTTP, FTP, WAIS, and NNTP servers.
+ .
+ This package contains a development version of lynx.
